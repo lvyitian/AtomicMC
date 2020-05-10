@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libraries/gson-2.8.6.jar" sourcepath="libraries/gson-2.8.6-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/AtomicMC/libraries/gson-2.8.6-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libraries/netty-all-4.1.48.Final.jar" sourcepath="libraries/netty-all-4.1.48.Final-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/AtomicMC/libraries/netty-all-4.1.48.Final-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libraries/rhino-1.7.12.jar"/>
+	<classpathentry kind="lib" path="libraries/Java-WebSocket-1.4.1-with-dependencies.jar" sourcepath="libraries/Java-WebSocket-1.4.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/AtomicMC/libraries/Java-WebSocket-1.4.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
