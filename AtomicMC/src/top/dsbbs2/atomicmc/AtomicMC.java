@@ -9,8 +9,12 @@ import org.java_websocket.WebSocket;
 
 import top.dsbbs2.atomicmc.main.Main;
 import top.dsbbs2.atomicmc.plugin.PluginLoader;
+import top.dsbbs2.atomicmc.scheduler.AtomicMCScheduler;
 import top.dsbbs2.atomicmc.websocket.packet.IPacket;
 import top.dsbbs2.atomicmc.websocket.packet.PacketCommandRequest;
+import top.dsbbs2.atomicmc.websocket.packet.PacketSubscribeEvent;
+import top.dsbbs2.atomicmc.websocket.packet.PacketUnsubscribeEvent;
+import top.dsbbs2.atomicmc.websocket.packet.base.EventType;
 
 public final class AtomicMC
 {
@@ -59,5 +63,28 @@ public final class AtomicMC
   {
     return Main.getPlugins().parallelStream().filter(i -> Objects.equals(new File(i.dir).getName(), name)).findFirst()
         .orElse(null);
+  }
+  
+  public static AtomicMCScheduler getScheduler()
+  {
+    return AtomicMCScheduler.getInstance();
+  }
+  
+  public static PacketSubscribeEvent regEventPacket(String e)
+  {
+    return new PacketSubscribeEvent(e);
+  }
+  
+  public static PacketSubscribeEvent regEventPacket(EventType e)
+  {
+    return new PacketSubscribeEvent(e);
+  }
+  public static PacketUnsubscribeEvent unregEventPacket(String e)
+  {
+    return new PacketUnsubscribeEvent(e);
+  }
+  public static PacketUnsubscribeEvent unregEventPacket(EventType e)
+  {
+    return new PacketUnsubscribeEvent(e);
   }
 }

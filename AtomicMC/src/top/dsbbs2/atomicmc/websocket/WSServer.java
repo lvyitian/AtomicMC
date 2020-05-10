@@ -11,6 +11,7 @@ import top.dsbbs2.atomicmc.AtomicMC;
 import top.dsbbs2.atomicmc.main.Main;
 import top.dsbbs2.atomicmc.main.Settings;
 import top.dsbbs2.atomicmc.plugin.PluginLoader;
+import top.dsbbs2.atomicmc.scheduler.AtomicMCScheduler;
 
 public class WSServer extends WebSocketServer
 {
@@ -32,7 +33,7 @@ public class WSServer extends WebSocketServer
         "tellraw @a {\"rawtext\":[{\"text\":\"¡ìb[Server INFO] AtomicMCÒÑÁ¬½Ó\"}]}"
         ,conn);
     for(PluginLoader i : Main.getPlugins())
-      i.tryInvokeFunction("onConnect",conn,handshake);
+      AtomicMCScheduler.getInstance().runTask(()->i.tryInvokeFunction("onConnect",conn,handshake));
   }
 
   @Override
@@ -42,7 +43,7 @@ public class WSServer extends WebSocketServer
     this.clients.remove(conn);
     Main.getLogger().info("connection from " + t.toString() + " disconnected");
     for(PluginLoader i : Main.getPlugins())
-      i.tryInvokeFunction("onDisconnect",t,conn,code,reason,remote);
+      AtomicMCScheduler.getInstance().runTask(()->i.tryInvokeFunction("onDisconnect",t,conn,code,reason,remote));
   }
 
   @Override
@@ -53,7 +54,7 @@ public class WSServer extends WebSocketServer
       Main.getLogger().info(message);
     }
     for(PluginLoader i : Main.getPlugins())
-      i.tryInvokeFunction("onMessage",conn,message);
+      AtomicMCScheduler.getInstance().runTask(()->i.tryInvokeFunction("onMessage",conn,message));
   }
 
   @Override
@@ -63,7 +64,7 @@ public class WSServer extends WebSocketServer
       conn.close();
     Main.getLogger().severe("\n" + Main.throwableToString(ex));
     for(PluginLoader i : Main.getPlugins())
-      i.tryInvokeFunction("onException",conn,ex);
+      AtomicMCScheduler.getInstance().runTask(()->i.tryInvokeFunction("onException",conn,ex));
   }
 
   @Override
