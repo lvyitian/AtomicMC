@@ -98,6 +98,7 @@ public class Main
     try {
       new Thread(() ->
       {
+        Main.getLogger().info("WatchDog Thread Started");
         while (Main.mainThread.isAlive()) {
           try {
             Thread.sleep(1);
@@ -114,13 +115,18 @@ public class Main
           this.setDaemon(false);
         }
       }.start();
+      Main.getLogger().info("Starting server...");
       Main.SERVER.start();
+      Main.getLogger().info("Waiting server to be started...");
+      Main.SERVER.future.sync();
+      Main.getLogger().info("Server started");
       final File pls = new File("plugins");
       if (!pls.isDirectory()) {
         pls.mkdirs();
       }
       for (final File i : pls.listFiles()) {
         if (i.isDirectory()) {
+          Main.getLogger().info("Loading plugin \""+i.getName()+"\"");
           new PluginLoader(i.getName());
         }
       }

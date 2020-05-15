@@ -16,6 +16,7 @@ import top.dsbbs2.atomicmc.scheduler.AtomicMCScheduler;
 public class WSServer extends WebSocketServer
 {
   protected final CustomMap<WebSocket,InetSocketAddress> clients = new CustomMap<>();
+  public final ServerFuture future=new ServerFuture();
   public WSServer(int port)
   {
     super(new InetSocketAddress(port));
@@ -65,12 +66,15 @@ public class WSServer extends WebSocketServer
     Main.getLogger().severe("\n" + Main.throwableToString(ex));
     for(PluginLoader i : Main.getPlugins())
       AtomicMCScheduler.getInstance().runTask(()->i.tryInvokeFunction("onException",conn,ex));
+    if(conn==null)
+      System.exit(-1);
   }
 
   @Override
   public void onStart()
   {
     Main.getLogger().info(String.format("Server started on %s", Main.SERVER.getAddress().toString()));
+    this.future.finish();
   }
 
 }
